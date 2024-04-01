@@ -7,7 +7,7 @@ export default function Home() {
       </div>
 
       <div className="flex-grow flex-shrink-0 flex-basis-0 self-stretch shadow-sm rounded bg-white">
-        <div className="font-normal text-3xl text-slate-800">Title</div>
+        <div className="font-normal text-3xl text-slate-800"></div>
       </div>
     </div>
   );
