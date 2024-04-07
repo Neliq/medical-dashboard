@@ -6,17 +6,25 @@ import { useState } from 'react';
 import { motion } from "framer-motion"
 import React from "react";
 
-const MenuItem = ({ href, icon, children, selected, setSelected }: { href: string, icon: React.ReactNode, children: React.ReactNode, selected: string, setSelected: React.Dispatch<React.SetStateAction<string>> }) => {
+const MenuItem = ({ href, icon, children, selected, setSelected, disabled }: { href: string, icon: React.ReactNode, children: React.ReactNode, selected: string, setSelected: React.Dispatch<React.SetStateAction<string>>, disabled?: boolean }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    if (disabled) {
+      e.preventDefault();
+    } else {
+      setSelected(href);
+    }
+  };
+
   return (
     <div className="flex items-center">
       <motion.div animate={selected === href ? { x: [0, -4, 0], transition: { duration: 0.4, ease: "easeInOut" } } : { x: 0 }}>
         <Link href={href}>
           <div
-            onClick={() => setSelected(href)}
-            className={`w-[219px] h-[64px] flex pl-6 items-center self-stretch gap-3 hover:text-teal-600 ${selected === href ? 'text-teal-600 font-semibold' : 'text-slate-600 font-medium'}`}
+            onClick={handleClick}
+            className={`w-[219px] h-[64px] flex pl-6 items-center self-stretch gap-3 ${disabled ? 'text-slate-300' : selected === href ? 'text-teal-600 font-semibold' : 'text-slate-600 font-medium hover:text-teal-600'}`}
           >
-            <div className={`flex p-2 justify-center items-center space-x-2 space-y-2 rounded-md ${selected === href ? 'bg-teal-600 border border-slate-200' : 'bg-slate-50 border border-slate-300'}`}>
-              {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement, { color: selected === href ? 'white' : '#475569' }) : null}
+            <div className={`flex p-2 justify-center items-center space-x-2 space-y-2 rounded-md ${disabled ? 'bg-slate-50 border border-slate-100' : selected === href ? 'bg-teal-600 border border-slate-200' : 'bg-slate-50 border border-slate-300'}`}>
+              {React.isValidElement(icon) ? React.cloneElement(icon as React.ReactElement, { color: disabled ? '#cbd5e1' : selected === href ? 'white' : '#475569' }) : null}
             </div>
             {children}
           </div>
@@ -30,14 +38,14 @@ const MenuItem = ({ href, icon, children, selected, setSelected }: { href: strin
 };
 
 export default function LeftMenu() {
-  const [selected, setSelected] = useState('home');
+  const [selected, setSelected] = useState('/home');
 
   const menuItems = [
-    { href: "/home", icon: <LuHome size={16} />, label: "Home" },
-    { href: "/appointments", icon: <LuBriefcase size={16} />, label: "Appointments" },
-    { href: "/messages", icon: <LuMessageSquare size={16} />, label: "Messages" },
-    { href: "/calendar", icon: <LuCalendar size={16} />, label: "Calendar" },
-    { href: "/patients", icon: <LuUsers size={16} />, label: "Patients" },
+    { href: "/home", icon: <LuHome size={16} />, label: "Home", disabled: false },
+    { href: "/appointments/patient", icon: <LuBriefcase size={16} />, label: "Appointments", disabled: false },
+    { href: "/messages", icon: <LuMessageSquare size={16} />, label: "Messages", disabled: true },
+    { href: "/calendar", icon: <LuCalendar size={16} />, label: "Calendar", disabled: true },
+    { href: "/patients", icon: <LuUsers size={16} />, label: "Patients", disabled: true },
   ];
 
   return (
@@ -50,7 +58,7 @@ export default function LeftMenu() {
             </div>
           </div>
           {menuItems.map(item => (
-            <MenuItem key={item.href} href={item.href} icon={item.icon} selected={selected} setSelected={setSelected}>{item.label}</MenuItem>
+            <MenuItem key={item.href} href={item.href} icon={item.icon} selected={selected} setSelected={setSelected} disabled={item.disabled}>{item.label}</MenuItem>
           ))}
         </div>
         <div className="flex py-6 px-6 flex-col items-start self-stretch bg-white hover:text-teal-600">

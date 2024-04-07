@@ -78,3 +78,78 @@
 [data-state="open"] {
   background-color: #F0FDFA;
 }
+
+.al-ver {
+  display: flex;
+  flex-direction: column;
+}
+
+.al-wrap {
+  flex-wrap: wrap;
+}
+
+.al-1 {
+  justify-content: start;
+  align-items: start;
+  display: flex;
+}
+
+.al-2 {
+  justify-content: start;
+  align-items: center;
+  display: flex;
+}
+
+.al-3 {
+  justify-content: start;
+  align-items: end;
+  display: flex;
+}
+
+.al-4 {
+  justify-content: center;
+  align-items: start;
+  display: flex;
+}
+
+.al-5 {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.al-6 {
+  justify-content: center;
+  align-items: end;
+  display: flex;
+}
+
+.al-7 {
+  justify-content: end;
+  align-items: start;
+  display: flex;
+}
+
+.al-8 {
+  justify-content: end;
+  align-items: center;
+  display: flex;
+}
+
+.al-9 {
+  justify-content: end;
+  align-items: end;
+  display: flex;
+}
+
+.fill-y {
+  flex: 1 0 0;
+}
+
+.fill-x {
+  align-self: stretch;
+}
+
+.gap-auto { 
+  justify-content: space-between;
+}

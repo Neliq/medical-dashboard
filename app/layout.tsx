@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import localFont from 'next/font/local'
 import { cn } from "@/lib/utils"
 import LeftMenu from "@/components/blocks/LeftMenu";
-import DashboardBody from "@/components/blocks/DashboardBody";
 import "./globals.css";
 
 // Font paths
@@ -44,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <div className="flex fixed inset-0 p-0 items-center space-x-0 space-y-0 rounded-2xl bg-white">
           <LeftMenu />
-          <DashboardBody>{children}</DashboardBody>
+          {children}
         </div>
       </body>
     </html>
